@@ -45,18 +45,18 @@ if __name__ == '__main__':
         print("***Error: template not found!")
     
     user_records = [
-#         { 
-#              b"first_name":    b"Jim",
-#              b"last_name":     b"Thompson",
-# #             b"email_address": b"jtoftx+test@gmail.com",
-#              b"email_address": b"jthompson@delligattiassociates.com",
-#              b"organization":  b"Troutflap Associates"
-#            },
+        { 
+             b"first_name":    b"Jim",
+             b"last_name":     b"Thompson",
+#             b"email_address": b"jtoftx+test@gmail.com",
+             b"email_address": b"jthompson@delligattiassociates.com",
+             b"organization":  b"Troutflap Associates"
+           },
         { 
              b"first_name":    b"Albert",
              b"last_name":     b"Troutflap",
 #             b"email_address": b"jim.thompson@pobox.com",
-             b"email_address": b"jtoftx@gmail.com",
+             b"email_address": b"blinkenjim@gmail.com",
              b"organization":  b"Troutflap Associates"
            }]
     
@@ -82,6 +82,8 @@ if __name__ == '__main__':
             print_message = print_message.decode('UTF-8')
             print_message = print_message.replace('\r', '')
             print(print_message)
+    
+        message = message.decode('UTF-8')
     
         if True:
             smtp_interface.sendmail(fromaddr, toaddr, message)
