@@ -34,8 +34,24 @@ if __name__ == '__main__':
     #toaddr = "jtoftx@gmail.com"
     #toaddr = "kzinti@protonmail.com"
     toaddr = "blinkenjim@gmail.com"
-    msg="From: " + fromaddr + "\r\nTo: " + toaddr + "\r\nSubject: From Python.\r\n\r\nfoobar.\r\n"
+    #msg="From: " + fromaddr + "\r\nTo: " + toaddr + "\r\nSubject: From Python.\r\n\r\nfoobar.\r\n"
     #msg = msg.encode('utf-8')
+    
+    msg = """To: blinkenjim@gmail.com
+User-Agent: Microsoft-MacOutlook/16.44.20121301
+Subject: Welcome to the Delligatti Associates OCSMP
+ Accelerator SysML training course
+From: Jim Thompson <jthompson@delligattiassociates.com>
+Thread-Topic: Welcome to the Delligatti Associates OCSMP
+ Accelerator SysML training course
+Thread-Index: AQHW5eBkSi8yeZixKUm3/yRARlkm3w==
+Content-type: text/plain;
+    charset="UTF-8"
+Content-transfer-encoding: quoted-printable
+MIME-Version: 1.0
+
+This is a test.
+"""
     
     print("Using SMTP user = <%s>, password = <%s>" % (creds.username, creds.password))
     

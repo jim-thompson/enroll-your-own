@@ -72,6 +72,10 @@ class IMAPInterface:
                 # Get the message from the return data
                 message = data[0][1]
 
+                # The IMAP interface returns an array of bytes. Convert it to a string.
+                message = message.decode('UTF-8')
+    
+
         except KeyError:
             print("*** Error: template tag <%s> not found." % template_name)
             message = None

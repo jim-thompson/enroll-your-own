@@ -10,6 +10,7 @@ from imap import IMAPInterface
 from smtp import SMTPInterface
 
 from macros import macro_fill
+from message import message_prep
 
 if __name__ == '__main__':
     # Note: SMTP creds are used for both SMTP and IMAP servers.
@@ -43,47 +44,43 @@ if __name__ == '__main__':
     
     if base_template is None:
         print("***Error: template not found!")
-    
+        
+    base_template = message_prep(base_template)
+        
     user_records = [
+#         { 
+#              "first_name":    "Jim",
+#              "last_name":     "Thompson",
+# #             "email_address": "jtoftx+test@gmail.com",
+#              "email_address": "jthompson@delligattiassociates.com",
+#              "organization":  "Troutflap Associates"
+#            },
         { 
-             b"first_name":    b"Jim",
-             b"last_name":     b"Thompson",
-#             b"email_address": b"jtoftx+test@gmail.com",
-             b"email_address": b"jthompson@delligattiassociates.com",
-             b"organization":  b"Troutflap Associates"
-           },
-        { 
-             b"first_name":    b"Albert",
-             b"last_name":     b"Troutflap",
-#             b"email_address": b"jim.thompson@pobox.com",
-             b"email_address": b"blinkenjim@gmail.com",
-             b"organization":  b"Troutflap Associates"
+             "first_name":    "Albert",
+             "last_name":     "Troutflap",
+#             "email_address": "jim.thompson@pobox.com",
+             "email_address": "blinkenjim@gmail.com",
+             "organization":  "Troutflap Associates"
            }]
     
     for dict_ in user_records:
 
-        to_line = b"To: ${first_name} ${last_name} <${email_address}>"
-        template = to_line + b"\r\n" + base_template
+        to_line = "To: ${first_name} ${last_name} <${email_address}>"
+        template = to_line + "\r\n" + base_template
             
+        
         message = macro_fill(template, dict_)
             
         #fromaddr = "jim.thompson@outlook.com"
         fromaddr = "jthompson@delligattiassociates.com"
-        toaddr = dict_[b"email_address"]
-#         toaddr = "jim.thompson@pobox.com"
-        
-#         from_line = b"From: %s\r\n" % fromaddr.encode()
-#         message = from_line + message
-        
-        toaddr = toaddr.decode()
-    
+        toaddr = dict_["email_address"]
+
         if True:
-            print_message = message
-            print_message = print_message.decode('UTF-8')
-            print_message = print_message.replace('\r', '')
+            print_message = message.replace('\r', '')
+            print_message = print_message.strip()
+            print('--------------------------------------------------------------------------------------')
             print(print_message)
-    
-        message = message.decode('UTF-8')
+            print('--------------------------------------------------------------------------------------')
     
         if True:
             smtp_interface.sendmail(fromaddr, toaddr, message)

@@ -6,7 +6,7 @@ Created on Jan 12, 2021
 
 import re
 
-prog = re.compile(b"\${([a-zA-Z0-9:_-]+)}")
+prog = re.compile("\${([a-zA-Z0-9:_-]+)}")
 
 def macro_substitute(text, m, fill_text):
     """
@@ -31,7 +31,7 @@ def get_macro_expansion(_dict, name):
     try:
         return _dict[name]
     except:
-        return b""
+        return ""
 
 def macro_fill(text, _dict):
     """
@@ -55,10 +55,10 @@ def macro_fill(text, _dict):
         # Macros that look like ${tag:some-text} are replaced by the
         # empty string. They exist just for keyword matching and must
         # always be removed entirely.
-        if (macro_name[0:4] == b"tag:"):
+        if (macro_name[0:4] == "tag:"):
 
             # Substitute the macro with an empty string
-            text = macro_substitute(text, match, b"")
+            text = macro_substitute(text, match, "")
         else:
             # Look up the macro name in the dictionary to get the text
             # to replace it with.
