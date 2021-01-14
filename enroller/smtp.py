@@ -31,9 +31,9 @@ class SMTPInterface:
         print("---> login")
         self._server.login(creds.username, creds.password)
 
-    def sendmail(self, fromaddr, toaddrs, message):
-        print("---> sendmail")
-        self._server.sendmail(fromaddr, toaddrs, message)
+    def sendmail(self, fromaddr, toaddr, message):
+        print("---> sendmail from<%s>, to <%s>" % (fromaddr, toaddr))
+        self._server.sendmail(fromaddr, toaddr, message)
 
     def terminateService(self):
         print("---> quit")

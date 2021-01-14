@@ -45,29 +45,31 @@ if __name__ == '__main__':
         print("***Error: template not found!")
     
     user_records = [
-        # { 
-        #      b"first_name":    b"Jim",
-        #      b"last_name":     b"Thompson",
-        #      b"email_address": b"jtoftx+test@gmail.comf",
-        #      b"organization":  b"Troutflap Associates"
-        #    },
+#         { 
+#              b"first_name":    b"Jim",
+#              b"last_name":     b"Thompson",
+# #             b"email_address": b"jtoftx+test@gmail.com",
+#              b"email_address": b"jthompson@delligattiassociates.com",
+#              b"organization":  b"Troutflap Associates"
+#            },
         { 
              b"first_name":    b"Albert",
              b"last_name":     b"Troutflap",
-             b"email_address": b"jim.thompson@pobox.com",
+#             b"email_address": b"jim.thompson@pobox.com",
+             b"email_address": b"jtoftx@gmail.com",
              b"organization":  b"Troutflap Associates"
            }]
     
-    for _dict in user_records:
+    for dict_ in user_records:
 
         to_line = b"To: ${first_name} ${last_name} <${email_address}>"
         template = to_line + b"\r\n" + base_template
             
-        message = macro_fill(template, _dict)
+        message = macro_fill(template, dict_)
             
         #fromaddr = "jim.thompson@outlook.com"
         fromaddr = "jthompson@delligattiassociates.com"
-        toaddr = _dict[b"email_address"]
+        toaddr = dict_[b"email_address"]
 #         toaddr = "jim.thompson@pobox.com"
         
 #         from_line = b"From: %s\r\n" % fromaddr.encode()
