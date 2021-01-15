@@ -2,6 +2,9 @@
 Created on Jan 13, 2021
 
 @author: jct
+
+A simple and not-to-be-maintained program to test exchanges with smtp
+servers.
 '''
 
 import smtplib
@@ -10,25 +13,6 @@ from creds import SMTPCreds
 
 if __name__ == '__main__':
     creds = SMTPCreds()
-    
-    def prompt(prompt):
-        return input(prompt).strip()
-    
-    # fromaddr = prompt("From: ")
-    # toaddrs  = prompt("To: ").split()
-    # print("Enter message, end with ^D (Unix) or ^Z (Windows):")
-    
-    # # Add the From: and To: headers at the start!
-    # msg = ("From: %s\r\nTo: %s\r\n\r\n"
-    #        % (fromaddr, ", ".join(toaddrs)))
-    # while True:
-    #     try:
-    #         line = input()
-    #     except EOFError:
-    #         break
-    #     if not line:
-    #         break
-    #     msg = msg + line
     
     fromaddr = "jthompson@delligattiassociates.com"
     #toaddr = "jtoftx@gmail.com"

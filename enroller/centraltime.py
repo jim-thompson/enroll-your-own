@@ -2,6 +2,11 @@
 Created on Jan 14, 2021
 
 @author: jct
+
+Utility function to create an RFC-822 compliant date string,
+representing the current time, to use as the "Date:" field of an email
+message.
+
 '''
 
 import datetime

@@ -48,13 +48,13 @@ if __name__ == '__main__':
     base_template = message_prep(base_template)
         
     user_records = [
-#         { 
-#              "first_name":    "Jim",
-#              "last_name":     "Thompson",
-# #             "email_address": "jtoftx+test@gmail.com",
-#              "email_address": "jthompson@delligattiassociates.com",
-#              "organization":  "Troutflap Associates"
-#            },
+        { 
+             "first_name":    "Jim",
+             "last_name":     "Thompson",
+             "email_address": "jim.thompson@pobox.com",
+#             "email_address": "jthompson@delligattiassociates.com",
+             "organization":  "Troutflap Associates"
+           },
         { 
              "first_name":    "Albert",
              "last_name":     "Troutflap",
@@ -82,7 +82,7 @@ if __name__ == '__main__':
             print(print_message)
             print('--------------------------------------------------------------------------------------')
     
-        if True:
+        if False:
             smtp_interface.sendmail(fromaddr, toaddr, message)
             #smtp_interface.sendmail(fromaddr, "jthompson@delligattiassociates.com", message)
     
