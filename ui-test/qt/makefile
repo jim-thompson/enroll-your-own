@@ -6,7 +6,7 @@ PYUIC5 = pyuic5-3.7
 	$(PYRCC5) $< -o $@
 
 OBJS = \
-     ui_main.py
+     ui_mainwindow.py
 
 all: $(OBJS)
 

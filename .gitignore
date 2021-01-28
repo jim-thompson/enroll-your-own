@@ -14,3 +14,6 @@ creds.py
 
 # macOS files
 .DS_Store
+
+# MagicDraw/Cameo backup files
+*.mdzip.bak

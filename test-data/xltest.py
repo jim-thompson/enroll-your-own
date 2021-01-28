@@ -6,7 +6,6 @@ Created on Jan 19, 2021
 
 import re
 from openpyxl import load_workbook
-from macros import prog
 
 reprog_first_name = re.compile("first", flags=re.IGNORECASE)
 reprog_last_name =  re.compile("last", flags=re.IGNORECASE)
@@ -217,16 +216,12 @@ def load_spreadsheet(name):
                 print("---> <%s> <%s> <%s> <%s> <%s>" 
                       % (first_name, last_name, organization, primary_email, secondary_email))
         
-
-    
-#             for row in ws.values:
-#                 for cell in row:
-#                     print(cell, ' ', end='')
-#                 print()
+            return content
             
     except:
         print("*** error opening spreadsheet.")
-        raise
+    
+    return None
 
 if __name__ == '__main__':
     print("*** start ***")
