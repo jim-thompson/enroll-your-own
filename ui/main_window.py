@@ -6,8 +6,35 @@ Created on Jan 23, 2021
 
 from PyQt5.QtWidgets import QMainWindow, QFileDialog
 from PyQt5.Qt import QStandardItemModel, QStandardItem
+from PyQt5 import QtCore
+from PyQt5.QtCore import Qt
+
 from ui_mainwindow import Ui_MainWindow
 from xltest import load_spreadsheet
+
+class TableModel(QtCore.QAbstractTableModel):
+
+    def __init__(self, data):
+        super(TableModel, self).__init__()
+        self._data = data
+
+    def data(self, index, role):
+        if role == Qt.DisplayRole:
+            value = self._data[index.row()][index.column()]
+            return str(value)
+
+    def rowCount(self, index):
+        try:
+            return len(self._data)
+        except:
+            return 0
+
+    def columnCount(self, index):
+        try:
+            return len(self._data[0])
+        except:
+            return 0
+
 
 class MainWindow(Ui_MainWindow, QMainWindow):
     '''
@@ -27,7 +54,6 @@ class MainWindow(Ui_MainWindow, QMainWindow):
 
         foo = [["a", "b"], ["c", "d"]]
         
-        model = QStandardItemModel(self.lv_enrollees)
         foods = [
             ['Cookie dough',1], # Must be store-bought
             ['Hummus', 2], # Must be homemade
@@ -36,19 +62,7 @@ class MainWindow(Ui_MainWindow, QMainWindow):
             ['Chocolate whipped cream', 5] # Must be plentiful
         ]
      
-        for foodlist in foods:
-            (food, cost) = foodlist
-            
-            print(food)
-            # Create an item with a caption
-            item = QStandardItem(food)
-         
-            # Add a checkbox to it
-            item.setCheckable(True)
-         
-            # Add the item to the model
-            model.appendRow(item)
-            
+        model = TableModel(foods)
         self.lv_enrollees.setModel(model)
         
     def quit(self):

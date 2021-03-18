@@ -84,7 +84,7 @@ if __name__ == '__main__':
     
         if False:
             smtp_interface.sendmail(fromaddr, toaddr, message)
-            #smtp_interface.sendmail(fromaddr, "jthompson@delligattiassociates.com", message)
+            #smtp_interface.sendmail(fromaddr, "jthompson@delligattiassociates.com", en_message)
     
     
     imap_interface.terminateService()

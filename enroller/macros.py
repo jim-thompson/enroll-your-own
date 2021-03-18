@@ -8,14 +8,17 @@ import re
 
 prog = re.compile("\${([a-zA-Z0-9:_-]+)}")
 
-def macro_substitute(text, m, fill_text):
+def macro_substitute(text, match, fill_text):
     """
-    Substitute the string match in regex match m with fill_text within text.
+    Substitute the string match in regex match match with fill_text within text.
+    
+    NOTE: This function is used outside of this module! Check in Remailer
+    tagscan.scan_for_tags for compatibility with any changes.
     """
 
     # Get the start and end indexes of the regex match.
-    start_index = m.start(0)
-    end_index = m.end(0)
+    start_index = match.start(0)
+    end_index = match.end(0)
 
     # Get the text that precedes the match and the text that follows
     # the match. 

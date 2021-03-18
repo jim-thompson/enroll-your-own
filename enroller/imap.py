@@ -4,12 +4,27 @@ Created on Jan 12, 2021
 @author: jct
 '''
 
+import logging
 import imaplib
+
+def info(str_):
+    print("IMAP: " + str_)
+    logging.info("IMAP: " + str_)
+
+def error(str_):
+    print("IMAP: " + str_)
+    logging.error("IMAP: " + str_)
+
+def debug(str_):
+    logging.debug("IMAP: " + str_)
 
 class IMAPInterface:
     def __init__(self):
-        print("Init IMAP interface")
+        debug("Initializing")
         self._server = None
+        
+    def getServer(self):
+        return self._server
 
     def readyService(self, service, creds):
         '''
@@ -25,21 +40,22 @@ class IMAPInterface:
         _port = service["port"]
 
         # Debug
-        print("Connecting IMAP <%s:%d>" %(_server_addr, _port))
+        info("Connecting to %s:%d" %(_server_addr, _port))
+        # print("Connecting IMAP <%s:%d>" %(_server_addr, _port))
         print("Using SMTP user = <%s>, password = <%s>" % (creds.username, creds.password))
 
         # Connect to the server.
-        print("---> connect")
+        debug("---> connect")
         self._server = imaplib.IMAP4_SSL(host = _server_addr, port = _port)
 
         # And log in with the provided credentials.
-        print("---> login")
+        debug("---> login")
         #rval = self._server.login(creds.username, creds.password)
         self._server.login(creds.username, creds.password)
 
     def terminateService(self):
         '''Log out and disconnect from the IMAP server. '''
-        print("---> logout")
+        debug("---> logout")
         self._server.logout()
 
     def getTemplate(self, template_name):
@@ -53,7 +69,7 @@ class IMAPInterface:
         These names may change without notice.
         '''
 
-        # At the end of this function, we return message; set it to
+        # At the end of this function, we return en_message; set it to
         # None for those cases where a suitable template could not be
         # identified.
         message = None
@@ -74,9 +90,9 @@ class IMAPInterface:
             # Get the string to search for.
             search_string = tagdict[template_name]
 
-            print("Search string is <%s>" % search_string)
+            debug("Search string is <%s>" % search_string)
 
-            # Call the IMAP server to try to find a message with the
+            # Call the IMAP server to try to find a en_message with the
             # search tag as its subject.
             _typ, data = self._server.search(None, 'SUBJECT', search_string)
 
@@ -85,23 +101,23 @@ class IMAPInterface:
             templates = data[0].split()
 
             if len(templates) < 1:
-                print("***Error: template not found, aborting")
+                info("*** Error: template not found, aborting")
                 message = None
 
             elif len(templates) > 1:
-                print("***Error: too many templates found, aborting")
+                info("*** Error: too many templates found, aborting")
                 message = None
                 
             else:
-                print("SUCCESS! Found the <%s> template" % template_name)
+                info("SUCCESS! Found the <%s> template" % template_name)
 
-                print("Fetching template body")
+                info("Fetching template body")
 
                 # TO-DO: Figure out what errors can reasonably occur
                 # here and how to catch them.
                 _typ, data = self._server.fetch(templates[0], '(RFC822)')
 
-                # Get the message from the return data
+                # Get the en_message from the return data
                 message = data[0][1]
 
                 # The IMAP interface returns an array of bytes. Convert it to a string.
@@ -109,7 +125,7 @@ class IMAPInterface:
     
         except KeyError:
             # Catch the axception if the tag name was unknown.
-            print("*** Error: template tag <%s> not found." % template_name)
+            info("*** Error: template tag <%s> not found." % template_name)
             message = None
 
         # Return the message found, or None if wasn't found.
