@@ -15,23 +15,29 @@ def debug(str_):
     logging.debug("SMTP: " + str_)
 
 class SMTPInterface:
-    def __init__(self):
+    def __init__(self, service, creds):
         debug("Initializing")
         self._server = None
+        self._service = service
+        self._creds = creds
 
-    def readyService(self, service, creds):
+    def readyService(self):
         '''
         Get the SMTP service ready to use. Connect to the SMTP server
         specified using service with the authentication credentials
         specified in creds.
 
         '''
+        
+        # If we have a valid server object, then there's nothing to do.
+        if self._server is not None:
+            return
 
         # Get the hostname, port number, and name of the local
         # hostname from the service dictionary.
-        server_addr = service["server_addr"]
-        port = service["port"]
-        local_hostname = service["local_hostname"]
+        server_addr = self._service["server_addr"]
+        port = self._service["port"]
+        local_hostname = self._service["local_hostname"]
         
         info("Connecting %s:%s" % (server_addr, port))
 
@@ -46,8 +52,8 @@ class SMTPInterface:
 
         # And log in with the provided credentials
         debug("---> Login")
-        print("Using user = <%s>, password = <%s>" % (creds.username, creds.password))
-        self._server.login(creds.username, creds.password)
+        print("Using user = <%s>, password = <%s>" % (self._creds.username, self._creds.password))
+        self._server.login(self._creds.username, self._creds.password)
 
     def sendmail(self, fromaddr, toaddr, message_str):
         '''Send a en_message from the specified email address to the
@@ -73,7 +79,11 @@ class SMTPInterface:
 
     def terminateService(self):
         '''Log out and disconnect from the IMAP server. '''
-        debug("---> quit")
-        self._server.quit()
+        
+        if self._server is not None:
+            debug("---> quit")
+            self._server.quit()
+            
+            self._server = None
 
 
