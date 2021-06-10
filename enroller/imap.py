@@ -52,6 +52,9 @@ class IMAPInterface:
         debug("---> login")
         #rval = self._server.login(creds.username, creds.password)
         self._server.login(creds.username, creds.password)
+        
+    def noop(self):
+        self._server.noop()
 
     def terminateService(self):
         '''Log out and disconnect from the IMAP server. '''
